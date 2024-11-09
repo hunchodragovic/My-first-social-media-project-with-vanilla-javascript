@@ -384,6 +384,20 @@ axios.post(url,formData,{
 
 console.log(response);
 
+
+
+    // Hide the modal after a successful post upload
+    const modal = document.getElementById('create-post-modal');
+    const bootstrapModal = bootstrap.Modal.getInstance(modal);
+    bootstrapModal.hide();
+
+    // Optionally, you can clear the input fields if desired
+    document.getElementById('post-title-input').value = '';
+    document.getElementById('post-body-input').value = '';
+    document.getElementById('post-image-input').value = '';
+
+
+
 }).catch((error)=>{
   alert(error.response.data.message)
 })
