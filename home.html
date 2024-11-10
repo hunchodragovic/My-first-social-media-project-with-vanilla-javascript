@@ -12,7 +12,7 @@
 <body>
   <!-- ADD A POST BUTTON -->
 
-  <div class="bg-primary " id="add-btn"  data-bs-toggle="modal" data-bs-target="#create-post-modal">
+  <div class="bg-primary " id="add-btn"  onclick="addBtnClicked()">
 +
   </div>
      <!-- ADD A POST BUTTON -->
@@ -88,7 +88,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Create a new Post</h1>
+            <h1 class="modal-title fs-5" id="post-modal-title">Create a new Post</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -96,6 +96,7 @@
               <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Title:</label>
                 <input type="text" class="form-control" id="post-title-input">
+                <input type="hidden" id="post-id-input" value="">
               </div>
               <div class="mb-3">
                 <textarea name="" id="post-body-input" ></textarea>
@@ -108,7 +109,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary"  onclick="createNewpostClicked()" id="register-btn">Create</button>
+            <button type="button" class="btn btn-primary" id="post-modal-submit-btn" onclick="createNewpostClicked()" id="register-btn">Create</button>
           </div>
         </div>
       </div>

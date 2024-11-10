@@ -112,11 +112,21 @@ function getPosts(reload = true, page = 1) {
       for (const post of posts) {
         const author = post.author;
         let postTitle = post.title || "";
+// show or hide edit btn
+let user = getCurrentUser()
+let isMyPost = user != null && post.author.id == user.id
+let editButtonContent = ""
+if(isMyPost){
+editButtonContent =   `<button class="btn btn-secondary" style="float: right" onclick="editPostBtnClicked('${encodeURIComponent(JSON.stringify(post))}')">edit</button>
+`}
+
         let content = `
           <div class="card shadow">
             <div class="card-header">
               <img src="${author.profile_image}" class="rounded-circle border border-3" style="width: 40px; height: 40px;">
               <b>${author.username}</b>
+                       ${editButtonContent} 
+
             </div>
             <div class="card-body" onclick="postClicked(${post.id})" style="cursor: pointer">
               <img class="w-100" src="${post.image}" alt="">
@@ -198,17 +208,31 @@ function refreshPage(){}
 
 
 function createNewpostClicked(){
+  let postId = document.getElementById("post-id-input").value;
+  let isCreate = postId == null || postId == ""
+ 
+
+
+
+
+
   const title = document.getElementById('post-title-input').value 
   const body = document.getElementById('post-body-input').value 
   const image = document.getElementById('post-image-input').files[0]
+ 
+ 
+ 
   let formData = new FormData()
   formData.append("body",body)
   formData.append("title",title)
   formData.append("image",image)
 
 
-const url = `${baseUrl}/posts`
+let url = ""
 const token = localStorage.getItem('token')
+
+if (isCreate){
+url = `${baseUrl}/posts`
 axios.post(url,formData,{
   headers: {
     "Content-Type":"multipart/form-data" ,
@@ -235,8 +259,75 @@ console.log(response);
 }).catch((error)=>{
   alert(error.response.data.message)
 })
+}else{
+  formData.append("_method","put")
+
+  url = `${baseUrl}/posts/${postId}`
+  axios.post(url,formData,{
+  headers: {
+    "Content-Type":"multipart/form-data" ,
+    "authorization": `Bearer ${token}`
+  }
+}).then((response) => {
+
+console.log(response);
+
+
+
+    // Hide the modal after a successful post upload
+    const modal = document.getElementById('create-post-modal');
+    const bootstrapModal = bootstrap.Modal.getInstance(modal);
+    bootstrapModal.hide();
+
+    // Optionally, you can clear the input fields if desired
+    document.getElementById('post-title-input').value = '';
+    document.getElementById('post-body-input').value = '';
+    document.getElementById('post-image-input').value = '';
+
+
+
+}).catch((error)=>{
+  alert(error.response.data.message)
+})
+}
+
+
 
 }
+
+
+function editPostBtnClicked(postObject){
+  let post = JSON.parse(decodeURIComponent(postObject))
+  console.log(post)
+  document.getElementById("post-modal-submit-btn").innerHTML = "Update"
+
+  document.getElementById("post-id-input").value = post.id
+  document.getElementById("post-modal-title").innerHTML = "Edit Post"
+  document.getElementById("post-title-input").value = post.title
+  document.getElementById("post-body-input").value = post.body
+
+let postModal = new bootstrap.Modal(document.getElementById("create-post-modal"),{})
+postModal.toggle()
+
+
+
+}
+
+
+
+
+function addBtnClicked(){
+  document.getElementById("post-modal-submit-btn").innerHTML = "Create"
+
+  document.getElementById("post-id-input").value = ""
+  document.getElementById("post-modal-title").innerHTML = "New Post"
+  document.getElementById("post-title-input").value = ""
+  document.getElementById("post-body-input").value = ""
+
+let postModal = new bootstrap.Modal(document.getElementById("create-post-modal"),{})
+postModal.toggle()
+}
+
 
 
 // function showSuccessAlert(){
