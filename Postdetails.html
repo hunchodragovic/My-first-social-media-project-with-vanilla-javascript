@@ -300,12 +300,37 @@ let postTitle = ""
 ${commentsContent}
                 
                                             </div>
-
+<div class="input-group mb-3" id="add-comment-div">
+  <input id="comment-input" type="text" placeholder="add your comment here" class="form-control">
+  <button class="btn btn-outline-primary" type="button" onclick="createCommentPost()">send</button>
+  </div>
 
                             </div>
  `
  document.getElementById('post').innerHTML = postContent
     })
+        }
+        function createCommentPost(){
+          let commentBody = document.getElementById("comment-input").value
+        let params = {
+          "body": commentBody
+        }
+        let token = localStorage.getItem("token")
+        let url = `${baseUrl}/posts/${id}/comments`
+        axios.post(url,params,{
+          headers: {
+            "authorization": `Bearer ${token}`
+          }
+        }).then((response) => {
+          console.log(response.data);
+          getPost()
+        }).catch((error) => {
+          const errorMessage = error.response.data.message
+          
+          
+          alert(errorMessage);
+          
+        })
         }
     </script>
 </body>
