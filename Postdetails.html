@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>POST DETAILS</title>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="node_modules/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <!-- ===MODALS =====-->
+ <!-- LOGIN MODAL -->
+ <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Log in</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Username:</label>
+              <input type="text" class="form-control" id="username-input">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="password-input">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  onclick="loginButtonClicked()" id="login-btn">Log in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+     <!-- LOGIN MODAL -->
+  
+      <!-- REGISTER MODAL -->
+   <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Profile image:</label>
+              <input type="file" class="form-control" id="register-image-input">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Username:</label>
+              <input type="text" class="form-control" id="register-username-input">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="register-name-input">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="register-password-input">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  onclick="registerBtnClicked()" id="register-btn">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+     <!-- REGISTER MODAL -->
+      <!-- ADD BUTTON MODAL -->
+      <div class="modal fade" id="create-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Create a new Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Title:</label>
+                  <input type="text" class="form-control" id="post-title-input">
+                </div>
+                <div class="mb-3">
+                  <textarea name="" id="post-body-input" ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Image:</label>
+                  <input type="file" class="form-control" id="post-image-input">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary"  onclick="createNewpostClicked()" id="register-btn">Create</button>
+            </div>
+          </div>
+        </div>
+      </div>
+           <!-- ADD BUTTON MODAL -->
+  
+    <!--====== MODALS =======-->
+  
+  
+  <!-- =========ALERTS======== -->
+  <div id="success-alert"></div>
+  <div id="logout-alert"></div>
+  <div id="register-succefully"></div>
+  <div id="unregister-succefully"></div>
+  
+   <!-- =========ALERTS======== -->
+  
+  
+      <!-- NAVBAR CONTAINER -->
+      <div class="container ">
+          <div class="d-flex justify-content-center">
+          <div class="col-9">
+               <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-3">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="home.html">Huncho</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Profile</a>
+                    </li>
+                 
+                  </ul>
+                  <!--NON LOGGED IN -->
+                <div class="d-flex justify-content-end w-100" id="login-div">
+                  <button type="button" class="btn btn-outline-success mx-2" 
+                  data-bs-toggle="modal" data-bs-target="#login-modal" >Log in</button>
+                  <button type="button" class="btn btn-outline-success"
+                  data-bs-toggle="modal" data-bs-target="#register-modal" 
+                  >Register</button>
+  
+                </div>
+                  <!--NON LOGGED IN -->
+                  <!--  LOGGED IN -->
+                  <div id="logout-div" class="d-flex justify-content-end w-100" style="display: flex; align-items: center;">
+                    <img src="imgs/profile pics/149071.png" style="width: 40px; height: 40px; border-radius: 50%;" id="nav-user-image">
+                   <b id="nav-username">
+                    @Huncho
+                   </b>
+                    <button onclick="logout()" type="button" id="logout-btn" class="btn btn-outline-danger mx-2" 
+                    data-bs-toggle="modal"  >Log out</button>
+    
+                  </div>
+                  <!--  LOGGED IN -->
+  
+                </div>
+              </div>
+            </nav>
+          </div>
+      </div>
+      </div>
+         <!--// NAVBAR CONTAINER //-->
+         <div class="container " > 
+            <!-- USERS'S POST -->
+            <div class="row d-flex justify-content-center mt-5">
+                <div class="col-9">
+<h1>
+<span id="username-span">
+    Ilyes's
+</span>
+Post
+</h1>
+</div>
+         </div>
+         <!-- POST ROW -->
+         <div class="row d-flex justify-content-center mt-5">
+            <div class="col-lg-9" id="post">
+
+            <!-- POST -->
+             <!-- =========POST CONTENT ====== -->
+                              <div class="card shadow">
+            <div class="card-header">
+              <img src="imgs/profile pics/149071.png" class="rounded-circle border border-3" style="width: 40px; height: 40px; ">
+<b>@huncho.dragovic</b>     
+       </div>
+                 <div class="card-body">
+                    <img class="w-100" src="imgs/maxresdefault.jpg" alt="">
+                 <h6 style="color: #9b9898;" class="mt-1">2 min ago</h6>
+               <h5>Donquixote Doflamingo            </h5>
+               <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa dolorem, iusto id sunt dolore facere!</p>
+           <hr>
+           <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+              </svg>
+            <span>(3) comments</span>
+         
+
+           </div>
+            </div>
+            <!-- COMMENTS -->
+            <div id="comments">
+<!-- ======= COMMENT ======= -->
+ <div class="p-3 " style="background-color: rgb(241, 241, 241);">
+<!-- PROFILE PIC + USERNAME -->
+ <div>
+    <img src="imgs/profile pics/149071.png" class="rounded-circle" style="width: 40px; height: 40px;">
+<b>@huncho.dragovic</b> 
+</div>
+ <!-- //PROFILE PIC + USERNAME //-->
+<!-- COMMENTS BODY -->
+ <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi dolores aut incidunt iste, optio laboriosam.</div>
+<!--//COMMENTS BODY// -->
+
+ </div>
+ <!-- //======= COMMENT =======// -->
+  
+</div>
+    <!-- COMMENTS -->
+
+
+                            </div>
+                                         <!-- =========POST CONTENT ====== -->
+
+        </div>
+    </div>
+                  <!-- // POST //-->
+                      <!-- // POST ROW //-->
+        </div>
+ 
+    <script src="mainLogic.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search)
+const id = urlParams.get("postId")    
+console.log(id);
+
+        setupUI()
+        getPost()
+        function getPost() {
+  axios.get(`${baseUrl}/posts/${id}`)
+    .then((response) => {
+      const post = response.data.data;
+const comments = post.comments     
+    const author = post.author 
+document.getElementById('username-span').innerHTML = author.username
+let postTitle = ""
+      if (post.title != null){
+          postTitle = post.title
+      }
+      let commentsContent = ``
+      for(comment of comments){
+        commentsContent += `
+        <!-- ======= COMMENT ======= -->
+ <div class="p-3 " style="background-color: rgb(241, 241, 241);">
+<!-- PROFILE PIC + USERNAME -->
+ <div>
+    <img src="${author.profile_image}" class="rounded-circle" style="width: 40px; height: 40px;">
+<b>@${comment.author.username}</b> 
+</div>
+ <!-- //PROFILE PIC + USERNAME //-->
+<!-- COMMENTS BODY -->
+ <div>${comment.body}</div>
+<!--//COMMENTS BODY// -->
+
+ </div>
+ <!-- //======= COMMENT =======// -->
+        `
+      }
+ const postContent = `
+              <div class="card shadow">
+            <div class="card-header">
+              <img src="${author.profile_image}" class="rounded-circle border border-3" style="width: 40px; height: 40px; ">
+<b>@${author.username}</b>     
+       </div>
+                 <div class="card-body">
+                    <img class="w-100" src="${post.image}" alt="">
+                 <h6 style="color: #9b9898;" class="mt-1">${post.created_at}</h6>
+               <h5>${postTitle}</h5>
+               <p>${post.body}</p>
+           <hr>
+           <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+              </svg>
+            <span>(${post.comments_count}) comments</span>
+         
+
+           </div>
+            </div>
+            <div id="comments">
+${commentsContent}
+                
+                                            </div>
+
+
+                            </div>
+ `
+ document.getElementById('post').innerHTML = postContent
+    })
+        }
+    </script>
+</body>
+</html>
