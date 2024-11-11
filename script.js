@@ -117,8 +117,11 @@ let user = getCurrentUser()
 let isMyPost = user != null && post.author.id == user.id
 let editButtonContent = ""
 if(isMyPost){
-editButtonContent =   `<button class="btn btn-secondary" style="float: right" onclick="editPostBtnClicked('${encodeURIComponent(JSON.stringify(post))}')">edit</button>
-`}
+editButtonContent =   `
+<button class="btn btn-danger " style="margin-left: 5px ;float: right" onclick="deletePostBtnClicked('${encodeURIComponent(JSON.stringify(post))}')">Delete</button>
+<button class="btn btn-secondary" style="float: right" onclick="editPostBtnClicked('${encodeURIComponent(JSON.stringify(post))}')">Edit</button>
+`
+}
 
         let content = `
           <div class="card shadow">
@@ -308,8 +311,41 @@ function editPostBtnClicked(postObject){
 
 let postModal = new bootstrap.Modal(document.getElementById("create-post-modal"),{})
 postModal.toggle()
+getPosts()
 
 
+}
+
+function deletePostBtnClicked(postObject){
+  let post = JSON.parse(decodeURIComponent(postObject))
+document.getElementById("delete-post-id-input").value = post.id
+let postModal = new bootstrap.Modal(document.getElementById("delete-post-modal"),{})
+postModal.toggle()
+
+
+}
+
+
+function confirmPostDelete(){
+  const token = localStorage.getItem("token")
+  const postId = document.getElementById("delete-post-id-input").value
+ const url = `${baseUrl}/posts/${postId}`
+
+ axios.delete(url,{
+  headers: {
+    "Content-Type":"multipart/form-data" ,
+    "authorization": `Bearer ${token}`
+  }
+}).then((response) => {
+  console.log(response);
+  const modal = document.getElementById('delete-post-modal');
+  const bootstrapModal = bootstrap.Modal.getInstance(modal);
+  bootstrapModal.hide();
+  getPosts()
+ }).catch((error) => {
+  alert(error.response.data.message)
+
+ })
 
 }
 
