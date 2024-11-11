@@ -29,3 +29,11 @@ margin-top: 30px;
     border-radius: 10px;
     resize: none;
 }
+.number-info{
+    color: rgb(172,172,172);
+    font-weight: 100;
+}
+.number-info span{
+    font-size: 50px;
+    color: black;
+}
