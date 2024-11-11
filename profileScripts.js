@@ -1,8 +1,19 @@
 setupUI()
 getUser()
 getPosts()
+function getCurrentUserId(){
+    const urlParams = new URLSearchParams(window.location.search)
+const id = urlParams.get("userid")   
+return id 
+}
+function postClicked(postId){
+    window.location = `postdetails.html/postId=${postId}`
+}
+
+
 function getUser(){
-    const id = "5"
+    const id = getCurrentUserId()
+ 
     axios.get(`${baseUrl}/users/${id}`)
     .then((response) => {
 const user = response.data.data   
@@ -20,7 +31,8 @@ document.getElementById("name-posts").innerHTML = `${user.username}'s`
 }
 
 function getPosts() {
-    const id = "5"
+    const id = getCurrentUserId()
+
     axios.get(`${baseUrl}/users/${id}/posts`)
       .then((response) => {
         const posts = response.data.data;
@@ -73,3 +85,4 @@ function getPosts() {
       })
       .catch(error => console.error("Error loading posts:", error));
   }
+ 

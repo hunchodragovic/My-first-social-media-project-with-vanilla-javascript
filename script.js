@@ -126,8 +126,10 @@ editButtonContent =   `
         let content = `
           <div class="card shadow">
             <div class="card-header">
+            <span onclick="userClicked(${author.id})" style="cursor:pointer;">
               <img src="${author.profile_image}" class="rounded-circle border border-3" style="width: 40px; height: 40px;">
               <b>${author.username}</b>
+              </span>
                        ${editButtonContent} 
 
             </div>
@@ -364,7 +366,11 @@ let postModal = new bootstrap.Modal(document.getElementById("create-post-modal")
 postModal.toggle()
 }
 
-
+function userClicked(userId){
+ 
+  
+ window.location = `profile.html?userid=${userId}`
+}
 
 // function showSuccessAlert(){
 //         const alertPlaceholder = document.getElementById('success-alert')
