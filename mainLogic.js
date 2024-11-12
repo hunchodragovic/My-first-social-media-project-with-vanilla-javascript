@@ -224,3 +224,9 @@ function setupUI(){
         window.location = `Postdetails.html?postId=${postId}`
       }
       
+      function profileClicked(){
+        const user = getCurrentUser()
+        const userId = user.id
+        window.location = `profile.html?userid=${userId}`
+
+      }

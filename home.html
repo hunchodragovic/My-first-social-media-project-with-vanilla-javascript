@@ -10,6 +10,31 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- ============== LOADERR  ============== -->
+
+<div id="loader" style="  background: rgba(128, 128, 128, 0.295);  position: fixed;left: 0px; right: 0px; top: 0; bottom: 0; margin: auto auto;
+ display: flex; justify-content: center; align-items: center; z-index: 58; width: 100px; height: 100px; border-radius: 20px;">
+  <div class="lds-roller" >
+  
+  <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+ <!-- ============== LOADERR  ============== -->
+
+
+
+
+
+
+
   <!-- ADD A POST BUTTON -->
 
   <div class="bg-primary " id="add-btn"  onclick="addBtnClicked()">
@@ -172,7 +197,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="profile.html">Profile</a>
+                    <a class="nav-link" onclick="profileClicked()" style="cursor: pointer;">Profile</a>
                   </li>
                
                 </ul>

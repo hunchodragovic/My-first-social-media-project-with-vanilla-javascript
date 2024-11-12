@@ -100,8 +100,10 @@ let currentPage = 1;
 let lastPage = 1;
 
 function getPosts(reload = true, page = 1) {
+  toggleLoader(true)
   axios.get(`${baseUrl}/posts?limit=2&page=${page}`)
     .then((response) => {
+      toggleLoader(false)
       const posts = response.data.data;
       lastPage = response.data.meta.last_page;
 
@@ -370,6 +372,16 @@ function userClicked(userId){
  
   
  window.location = `profile.html?userid=${userId}`
+}
+
+function toggleLoader(show = true){
+if(show){
+  document.getElementById("loader").style.visibility = "visible"
+}else{
+
+  document.getElementById("loader").style.visibility = "hidden"
+
+}
 }
 
 // function showSuccessAlert(){
